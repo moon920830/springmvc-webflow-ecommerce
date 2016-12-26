@@ -6,7 +6,7 @@ var EcommerceProducts = function () {
             rtl: Metronic.isRTL(),
             autoclose: true
         });
-    }
+    };
 
     var handleProducts = function() {
         var grid = new Datatable();
@@ -33,7 +33,7 @@ var EcommerceProducts = function () {
                 ],
                 "pageLength": 10, // default record count per page
                 "ajax": {
-                    "url": "demo/ecommerce_products.php", // ajax source
+                    "url": "/admin/products/data"
                 },
                 "order": [
                     [1, "asc"]
