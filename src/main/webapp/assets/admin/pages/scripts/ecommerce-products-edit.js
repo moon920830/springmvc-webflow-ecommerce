@@ -1,31 +1,26 @@
 var EcommerceProductsEdit = function () {
 
     var handleImages = function() {
+        
+        var urlUpload = _ctx + "/admin/products/uploads/media";
 
-        // see http://www.plupload.com/
         var uploader = new plupload.Uploader({
-            runtimes : 'html5,flash,silverlight,html4',
+            runtimes : 'html5,html4',
              
             browse_button : document.getElementById('tab_images_uploader_pickfiles'), // you can pass in id...
             container: document.getElementById('tab_images_uploader_container'), // ... or DOM Element itself
              
-            url : "assets/plugins/plupload/examples/upload.php",
+            url : urlUpload,
              
             filters : {
                 max_file_size : '10mb',
                 mime_types: [
-                    {title : "Image files", extensions : "jpg,gif,png"},
-                    {title : "Zip files", extensions : "zip"}
+                    {title : "Image files", extensions : "jpg,gif,png"}
                 ]
-            },
-         
-            // Flash settings
-            flash_swf_url : 'assets/plugins/plupload/js/Moxie.swf',
-     
-            // Silverlight settings
-            silverlight_xap_url : 'assets/plugins/plupload/js/Moxie.xap',             
+            },           
          
             init: {
+                
                 PostInit: function() {
                     $('#tab_images_uploader_filelist').html("");
          
