@@ -60,10 +60,24 @@ var EcommerceProductsEdit = function () {
                         console.log(response);
                         $('#uploaded_file_' + response.fileId + ' > .status').removeClass("label-info").addClass("label-success").html('<i class="fa fa-check"></i> Done');
                         Metronic.alert({type: 'success', message: 'Fichero ' + response.filename + ' subido con éxito', closeInSeconds: 5, icon: 'success'});
-                        var $template = $('#modelRowTemplate').clone().css("visibility", "visible");
+                        var $rows = $("#modelRows");
+                        var idx = $rows.children().size();
+                        var $template = $('#modelRowTemplate').clone();
+                        $template.css("display", "table-row");
                         var baseUrl = $template.attr("data-origin");
-                        $("[data-image]", $template).val(response.filename).prev().attr('src', baseUrl + response.filename);
-                        $("#modelRows").append($template);
+                        $("[data-image]", $template)
+                                .attr("name", "models["+idx+"].image")
+                                .val(response.filename)
+                                .prev()
+                                .attr('src', baseUrl + response.filename);
+                        
+                        $("[data-desc]", $template)
+                            .attr("name", "models["+idx+"].desc");
+                    
+                        $("[data-quantity]", $template)
+                            .attr("name", "models["+idx+"].quantity");
+                    
+                        $rows.append($template);
                     }
                 },
          
