@@ -54,15 +54,16 @@ var EcommerceProductsEdit = function () {
                 },
 
                 FileUploaded: function(up, file, response) {
-                    var response = $.parseJSON(response.response);
-
-                    if (response.result && response.result == 'OK') {
-                        var id = response.id; // uploaded file's unique name. Here you can collect uploaded file names and submit an jax request to your server side script to process the uploaded files and update the images tabke
-
-                        $('#uploaded_file_' + file.id + ' > .status').removeClass("label-info").addClass("label-success").html('<i class="fa fa-check"></i> Done'); // set successfull upload
-                    } else {
-                        $('#uploaded_file_' + file.id + ' > .status').removeClass("label-info").addClass("label-danger").html('<i class="fa fa-warning"></i> Failed'); // set failed upload
-                        Metronic.alert({type: 'danger', message: 'One of uploads failed. Please retry.', closeInSeconds: 10, icon: 'warning'});
+                    
+                    if(response.status == 200){
+                        var response = $.parseJSON(response.response);
+                        console.log(response);
+                        $('#uploaded_file_' + response.fileId + ' > .status').removeClass("label-info").addClass("label-success").html('<i class="fa fa-check"></i> Done');
+                        Metronic.alert({type: 'success', message: 'Fichero ' + response.filename + ' subido con éxito', closeInSeconds: 5, icon: 'success'});
+                        var $template = $('#modelRowTemplate').clone().css("visibility", "visible");
+                        var baseUrl = $template.attr("data-origin");
+                        $("[data-image]", $template).val(response.filename).prev().attr('src', baseUrl + response.filename);
+                        $("#modelRows").append($template);
                     }
                 },
          
