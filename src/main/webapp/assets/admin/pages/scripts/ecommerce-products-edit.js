@@ -20,7 +20,10 @@ var EcommerceProductsEdit = function () {
             },           
          
             init: {
-                
+                BeforeUpload: function(up, file) {
+                    console.log("BeforeUpload:", file);
+                    up.settings.multipart_params = {"fileid": file.id };
+                },
                 PostInit: function() {
                     $('#tab_images_uploader_filelist').html("");
          
@@ -40,8 +43,13 @@ var EcommerceProductsEdit = function () {
                         $('#tab_images_uploader_filelist').append('<div class="alert alert-warning added-files" id="uploaded_file_' + file.id + '">' + file.name + '(' + plupload.formatSize(file.size) + ') <span class="status label label-info"></span>&nbsp;<a href="javascript:;" style="margin-top:-5px" class="remove pull-right btn btn-sm red"><i class="fa fa-times"></i> remove</a></div>');
                     });
                 },
+                
+                FilesRemoved: function(up, files){
+                    console.log("Files:", files);
+                },
          
                 UploadProgress: function(up, file) {
+                    console.log("File to upload", file);
                     $('#uploaded_file_' + file.id + ' > .status').html(file.percent + '%');
                 },
 
