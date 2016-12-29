@@ -35,8 +35,19 @@ var EcommerceProducts = function () {
                 "ajax": {
                     "url": "/admin/products/data"
                 },
+                columns : [{
+                    data : "id"
+                },{
+                    data : "name"
+                },{
+                    data: "price"
+                },{
+                    data: "createAt"
+                },{
+                    data: "status"
+                }],
                 "order": [
-                    [1, "asc"]
+                    [3, "desc"]
                 ] // set first column as a default sort by asc
             }
         });
