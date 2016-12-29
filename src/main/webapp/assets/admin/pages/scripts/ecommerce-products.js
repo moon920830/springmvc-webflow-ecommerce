@@ -45,6 +45,11 @@ var EcommerceProducts = function () {
                     data: "createAt"
                 },{
                     data: "status"
+                },{
+                    data: "actions",
+                    render: function (data, type, row) {
+                        return "<a href='"+_ctx+"/admin/products/edit/"+row.id+"' class='btn btn-sm btn-default btn-circle btn-editable'><i class='fa fa-pencil'></i> Edit</a>";
+                    }
                 }],
                 "order": [
                     [3, "desc"]
