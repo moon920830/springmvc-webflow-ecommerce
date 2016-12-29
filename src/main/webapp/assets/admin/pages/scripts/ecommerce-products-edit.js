@@ -20,7 +20,7 @@ var EcommerceProductsEdit = function () {
             filters : {
                 max_file_size : '10mb',
                 mime_types: [
-                    {title : "Image files", extensions : "jpg,gif,png"}
+                    {title : "Image files", extensions : "jpg,jpeg,gif,png"}
                 ]
             },           
          
