@@ -2,6 +2,11 @@ var EcommerceProductsEdit = function () {
 
     var handleImages = function() {
         
+        var $template = $('#modelRowTemplate').clone();
+        $template.remove();
+        $template.css("display", "table-row");
+        var $rows = $("#modelRows");
+        
         var urlUpload = _ctx + "/admin/products/uploads/media";
 
         var uploader = new plupload.Uploader({
@@ -60,10 +65,7 @@ var EcommerceProductsEdit = function () {
                         console.log(response);
                         $('#uploaded_file_' + response.fileId + ' > .status').removeClass("label-info").addClass("label-success").html('<i class="fa fa-check"></i> Done');
                         Metronic.alert({type: 'success', message: 'Fichero ' + response.filename + ' subido con éxito', closeInSeconds: 5, icon: 'success'});
-                        var $rows = $("#modelRows");
                         var idx = $rows.children().size();
-                        var $template = $('#modelRowTemplate').clone();
-                        $template.css("display", "table-row");
                         var baseUrl = $template.attr("data-origin");
                         $("[data-image]", $template)
                                 .attr("name", "models["+idx+"].image")
@@ -134,7 +136,9 @@ var EcommerceProductsEdit = function () {
         //init datepickers
         $('.date-picker').datepicker({
             rtl: Metronic.isRTL(),
-            autoclose: true
+            autoclose: true,
+            format: 'dd/mm/yyyy',
+            setDate: new Date()
         });
 
         //init datetimepickers
@@ -143,7 +147,9 @@ var EcommerceProductsEdit = function () {
             autoclose: true,
             todayBtn: true,
             pickerPosition: (Metronic.isRTL() ? "bottom-right" : "bottom-left"),
-            minuteStep: 10
+            minuteStep: 10,
+            format: 'dd/mm/yyyy',
+            setDate: new Date()
         });
 
         //init maxlength handler
