@@ -2,12 +2,11 @@ var EcommerceProductsEdit = function () {
 
     var handleImages = function() {
         
-        var $template = $('#modelRowTemplate').clone();
-        $template.remove();
+        var $template = $('[data-product-line-template]').detach();
         $template.css("display", "table-row");
         var $rows = $("#modelRows");
         
-        var urlUpload = _ctx + "/admin/products/uploads/media";
+        var urlUpload = _ctx + "/admin/products/media/upload";
 
         var uploader = new plupload.Uploader({
             runtimes : 'html5,html4',
@@ -66,20 +65,21 @@ var EcommerceProductsEdit = function () {
                         $('#uploaded_file_' + response.fileId + ' > .status').removeClass("label-info").addClass("label-success").html('<i class="fa fa-check"></i> Done');
                         Metronic.alert({type: 'success', message: 'Fichero ' + response.filename + ' subido con éxito', closeInSeconds: 5, icon: 'success'});
                         var idx = $rows.children().size();
+                        $productLine = $template.clone();
                         var baseUrl = $template.attr("data-origin");
-                        $("[data-image]", $template)
-                                .attr("name", "models["+idx+"].image")
+                        //Config image
+                        $("[data-image]", $productLine)
+                                .attr("name", "productLines["+idx+"].image")
                                 .val(response.filename)
                                 .prev()
                                 .attr('src', baseUrl + response.filename);
-                        
-                        $("[data-desc]", $template)
-                            .attr("name", "models["+idx+"].desc");
-                    
-                        $("[data-quantity]", $template)
-                            .attr("name", "models["+idx+"].quantity");
-                    
-                        $rows.append($template);
+                        // Product Line Description field.
+                        $("[data-desc]", $productLine)
+                            .attr("name", "productLines["+idx+"].description");
+                        // Product Line Stock field.
+                        $("[data-stock]", $productLine)
+                            .attr("name", "productLines["+idx+"].stock");
+                        $rows.append($productLine);
                     }
                 },
          
