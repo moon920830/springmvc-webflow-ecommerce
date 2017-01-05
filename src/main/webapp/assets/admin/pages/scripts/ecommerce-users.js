@@ -46,7 +46,12 @@ var EcommerceUsers = function () {
                 },{
                     data: "lastLoginAccess"
                 },{
-                    data: "enabled"
+                    data: "enabled",
+                    render: function(data, type, row){
+                        var className = row.enabled ? "label-success" : "label-danger";
+                        var text = row.enabled ? "enabled" : "disabled";
+                        return "<span class='label " + className + "'>"+ text +"</span>";
+                    }
                 },{
                     data: "actions",
                     render: function (data, type, row) {

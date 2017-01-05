@@ -6,7 +6,7 @@ var Profile = function() {
 
         //main function
         init: function() {
-        
+            Profile.initTabs();
             Profile.initMiniCharts();
         },
 
@@ -52,7 +52,37 @@ var Profile = function() {
                 barColor: '#5C9BD1',
                 negBarColor: '#e02222'
             });
+        },
+        
+        initTabs: function(){
+            $tabsContent = $("#tabs_content");
+            $("#tabs_nav").delegate("a[data-tab]", "click", function(e){
+                e.preventDefault();
+                console.log("Tab selected", e.target);
+                var tab = e.target.dataset.tab;
+                $tab = $(e.target);
+                $tab.parent().addClass("active").siblings().removeClass("active");
+                var url;
+                switch(tab){
+                    case 'personal':
+                        url = "/admin/users/self/profile";
+                        break;
+                    case 'avatar':
+                        url = "/admin/users/self/avatar";
+                        break;
+                    case 'password':
+                        url = "/admin/users/self/change-password";
+                        break;
+                    
+                }
+                console.log("url to load: ", url);
+                url && $tabsContent.load(url);
+                
+            });
+            
+            $("#tabs_nav li.active a[data-tab]").trigger("click");
         }
+        
 
     };
 
