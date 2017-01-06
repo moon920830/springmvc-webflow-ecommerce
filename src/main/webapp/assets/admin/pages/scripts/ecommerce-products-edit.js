@@ -96,9 +96,10 @@ var EcommerceProductsEdit = function () {
     var handleReviews = function () {
 
         var grid = new Datatable();
-
+        $table = $("#datatable_reviews");
+        var source = $table.get(0).dataset.source;
         grid.init({
-            src: $("#datatable_reviews"),
+            src: $table,
             onSuccess: function (grid) {
                 // execute some code after table records loaded
             },
@@ -119,7 +120,7 @@ var EcommerceProductsEdit = function () {
                 ],
                 "pageLength": 10, // default record count per page
                 "ajax": {
-                    "url": "demo/ecommerce_product_reviews.php", // ajax source
+                    "url": source, // ajax source
                 },
                 "columnDefs": [{ // define columns sorting options(by default all columns are sortable extept the first checkbox column)
                     'orderable': true,
