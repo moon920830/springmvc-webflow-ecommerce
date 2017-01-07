@@ -81,6 +81,33 @@ var Profile = function() {
             });
             
             $("#tabs_nav li.active a[data-tab]").trigger("click");
+            
+            $tabsContent.delegate("form", "submit", function(e){
+                e.preventDefault();
+                var $form = $(e.target);
+                var action = $form.attr("action");
+                if($form.attr("enctype") == "multipart/form-data"){
+                    // create form data
+                    var data = new FormData($form.get(0));
+                    $.ajax({
+                        url: action,
+                        data: data,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        type: 'POST',
+                        success: function(response){
+                           $tabsContent.html(response);
+                        }
+                    });
+                }else{
+                    var data = $form.serializeArray();
+                    $.post(action, data, function(response){
+                        $tabsContent.html(response);
+                    });
+                }
+               
+            });
         }
         
 
