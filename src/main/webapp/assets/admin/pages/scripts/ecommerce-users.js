@@ -55,7 +55,11 @@ var EcommerceUsers = function () {
                 },{
                     data: "actions",
                     render: function (data, type, row) {
-                        return "<a href='"+_ctx+"/admin/users/edit/"+row.id+"' class='btn btn-sm btn-default btn-circle btn-editable'><i class='fa fa-pencil'></i> Edit</a>";
+                        var content = "<div class='btn-group btn-group-sm'>";
+                        content += "<a href='"+_ctx+"/admin/users/edit/"+row.id+"' class='btn btn-sm btn-default btn-circle btn-editable'><i class='fa fa-pencil'></i> Edit</a>";
+                        content += "<a href='"+_ctx+"/admin/users/remove/"+row.id+"' class='btn btn-sm btn-danger btn-circle btn-editable'><i class='fa fa-remove'></i> Remove</a>";
+                        content += "</div>";
+                        return content;
                     }
                 }],
                 "order": [
