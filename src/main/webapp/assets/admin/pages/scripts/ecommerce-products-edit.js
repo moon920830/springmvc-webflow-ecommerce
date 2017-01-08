@@ -5,6 +5,7 @@ var EcommerceProductsEdit = function () {
         var grid = new Datatable();
         $table = $("#datatable_reviews");
         var source = $table.get(0).dataset.source;
+        var $filterStatus = $("#filterStatus");
         grid.init({
             src: $table,
             onSuccess: function (grid) {
@@ -33,8 +34,32 @@ var EcommerceProductsEdit = function () {
                     'orderable': true,
                     'targets': [0]
                 }],
+                columns : [
+                    {
+                        data : "id"
+                    },{
+                        data : "createAt"
+                    },{
+                        data: "user",
+                        render: function (data, type, row) {
+                            return row.user.fullName;
+                        }
+                    },{
+                        data: "rating"
+                    },{
+                        data: "status",
+                        render: function(data,type, row){
+                            return $filterStatus.clone().attr("name", 1).attr("value", row.status).html();
+                        }
+                    },{
+                        data: "actions",
+                        render: function (data, type, row) {
+                            return "<a href='' class='btn btn-sm btn-default btn-circle btn-editable' data-target='#detailReviewModal' data-toggle='modal'><i class='fa fa-eye'></i> show</a>";
+                        }
+                    }
+                ],
                 "order": [
-                    [0, "asc"]
+                    [1, "desc"]
                 ] // set first column as a default sort by asc
             }
         });
