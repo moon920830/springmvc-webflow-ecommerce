@@ -12,14 +12,15 @@ var ProductDetail = function () {
             $.get(url, function (response) {
                 $addProductToCart.html(response);
                 Layout.initTouchspin();
-                $("#addProductToCartForm").on("submit", function (e) {
-                    e.preventDefault();
-                    var $this = $(this);
-                    var data = $this.serializeArray();
-                    $.post($this.attr("action"), data, function(response){
-                        $addProductToCart.html(response);
-                        Layout.initTouchspin();
-                    });
+            });
+            
+            $addProductToCart.on("submit", "form", function (e) {
+                e.preventDefault();
+                var $this = $(this);
+                var data = $this.serializeArray();
+                $.post($this.attr("action"), data, function (response) {
+                    $addProductToCart.html(response);
+                    Layout.initTouchspin();
                 });
             });
         },
@@ -29,13 +30,14 @@ var ProductDetail = function () {
             var reviewUrl = $createReviewContainer.get(0).dataset.source;
             $.get(reviewUrl, function (response) {
                 $createReviewContainer.html(response);
-                $("#reviews-form").on("submit", function (e) {
-                    e.preventDefault();
-                    var $this = $(this);
-                    var data = $this.serializeArray();
-                    $.post($this.attr("action"), data, function(response){
-                        $createReviewContainer.html(response);
-                    });
+            });
+            
+            $createReviewContainer.on("submit", "form", function (e) {
+                e.preventDefault();
+                var $this = $(this);
+                var data = $this.serializeArray();
+                $.post($this.attr("action"), data, function (response) {
+                    $createReviewContainer.html(response);
                 });
             });
         }
