@@ -13,7 +13,6 @@ var ProductDetail = function () {
                 $addProductToCart.html(response);
                 Layout.initTouchspin();
             });
-            
             $addProductToCart.on("submit", "form", function (e) {
                 e.preventDefault();
                 var $this = $(this);
@@ -27,19 +26,22 @@ var ProductDetail = function () {
         initReview: function () {
             
             var $createReviewContainer = $("#createReviewContainer");
-            var reviewUrl = $createReviewContainer.get(0).dataset.source;
-            $.get(reviewUrl, function (response) {
-                $createReviewContainer.html(response);
-            });
-            
-            $createReviewContainer.on("submit", "form", function (e) {
-                e.preventDefault();
-                var $this = $(this);
-                var data = $this.serializeArray();
-                $.post($this.attr("action"), data, function (response) {
+            if ($createReviewContainer.length > 0) {
+                var reviewUrl = $createReviewContainer.get(0).dataset.source;
+                $.get(reviewUrl, function (response) {
                     $createReviewContainer.html(response);
+                    $('div.rateit, span.rateit').rateit();
                 });
-            });
+                $createReviewContainer.on("submit", "form", function (e) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    var data = $this.serializeArray();
+                    $.post($this.attr("action"), data, function (response) {
+                        $createReviewContainer.html(response);
+                        $('div.rateit, span.rateit').rateit();
+                    });
+                });
+            }
         }
     };
 }();
