@@ -17,6 +17,10 @@ var GlobalSettings = function(){
                     }
                 });
             }
+        },
+        
+        doLogout: function () {
+            $("#logoutForm").get(0).submit();
         }
     }
 }
