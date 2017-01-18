@@ -455,17 +455,22 @@ var Layout = function () {
         },
 
         initSliderRange: function () {
+            
             $( "#slider-range" ).slider({
               range: true,
               min: 0,
               max: 999,
-              values: [ 50, 250 ],
+              values: [ $( "#priceMin" ).val(), $( "#priceMax" ).val() ],
               slide: function( event, ui ) {
-                $( "#amount" ).val( "€" + ui.values[ 0 ] + " - €" + ui.values[ 1 ] );
+                $( "#amount" ).text( "€" + ui.values[ 0 ] + " - €" + ui.values[ 1 ] );
+                $( "#priceMin" ).val(ui.values[ 0 ]);
+                $( "#priceMax" ).val(ui.values[ 1 ]);
               }
             });
-            $( "#amount" ).val( "€" + $( "#slider-range" ).slider( "values", 0 ) +
+            $( "#amount" ).text( "€" + $( "#slider-range" ).slider( "values", 0 ) +
             " - €" + $( "#slider-range" ).slider( "values", 1 ) );
+            $( "#priceMin" ).val($( "#slider-range" ).slider( "values", 0 ));
+            $( "#priceMax" ).val($( "#slider-range" ).slider( "values", 1 ));
         },
 
         // wrapper function to scroll(focus) to an element
