@@ -8,20 +8,23 @@ var ProductDetail = function () {
         },
         initAddProductToCart: function(){
             var $addProductToCart = $("#addProductToCart");
-            var url = $addProductToCart.get(0).dataset.source;
-            $.get(url, function (response) {
-                $addProductToCart.html(response);
-                Layout.initTouchspin();
-            });
-            $addProductToCart.on("submit", "form", function (e) {
-                e.preventDefault();
-                var $this = $(this);
-                var data = $this.serializeArray();
-                $.post($this.attr("action"), data, function (response) {
+            if($addProductToCart.length > 0){
+                var url = $addProductToCart.get(0).dataset.source;
+                $.get(url, function (response) {
                     $addProductToCart.html(response);
                     Layout.initTouchspin();
                 });
-            });
+                $addProductToCart.on("submit", "form", function (e) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    var data = $this.serializeArray();
+                    $.post($this.attr("action"), data, function (response) {
+                        $addProductToCart.html(response);
+                        Layout.initTouchspin();
+                    });
+                });
+            }
+            
         },
         initReview: function () {
             
