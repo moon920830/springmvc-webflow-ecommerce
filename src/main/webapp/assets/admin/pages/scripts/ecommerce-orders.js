@@ -11,6 +11,12 @@ var EcommerceOrders = function () {
     var handleOrders = function () {
 
         var grid = new Datatable();
+        var orderStatus = { 
+            'PENDING': 'label-warning', 
+            'CLOSED': 'label-info', 
+            'ON_HOLD': 'label-info',
+            'FRAUD': 'label-info'
+        };
 
         grid.init({
             src: $("#datatable_orders"),
@@ -38,19 +44,32 @@ var EcommerceOrders = function () {
                 columns : [{
                     data : "id"
                 },{
-                    data : "purchasedOn"
+                    data : "purchasedOn",
+                    render: function(data, type, row) {
+                        return new Date(row.purchasedOn).toLocaleDateString();
+                    }
                 },{
-                    data: "customer.name"
+                    data: "customer",
+                    render: function(data, type, row) {
+                        return row.customer.fullName;
+                    }
                 },{
                     data: "basePrice"
                 },{
                     data: "purchasedPrice"
                 },{
-                    data: "status"
+                    data: "status",
+                    render: function(data, type, row){
+                        return "<span class='label " + orderStatus[row.status] + "'>"+ row.status +"</span>";
+                    }
                 },{
                     data: "actions",
                     render: function (data, type, row) {
-                        return "<a href='"+_ctx+"/admin/products/edit/"+row.id+"' class='btn btn-sm btn-default btn-circle btn-editable'><i class='fa fa-pencil'></i> Edit</a>";
+                        var content = "<div class='btn-group btn-group-sm'>";
+                        content += "<a href='"+_ctx+"/admin/products/edit/"+row.id+"' class='btn btn-sm btn-default'><i class='fa fa-pencil'></i> Edit</a>";
+                        content += "<a href='"+_ctx+"/admin/orders/"+row.id+"' class='btn btn-sm btn-info'><i class='fa fa-eye'></i> show</a>";
+                        content += "</div>";
+                        return content;
                     }
                 }],
                 "order": [
