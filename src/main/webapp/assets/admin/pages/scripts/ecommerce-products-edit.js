@@ -38,7 +38,10 @@ var EcommerceProductsEdit = function () {
                     {
                         data : "id"
                     },{
-                        data : "createAt"
+                        data : "createAt",
+                        render: function(data, type, row) {
+                            return new Date(row.createAt).toLocaleDateString();
+                        }
                     },{
                         data: "user",
                         render: function (data, type, row) {
@@ -49,7 +52,7 @@ var EcommerceProductsEdit = function () {
                     },{
                         data: "status",
                         render: function(data,type, row){
-                            return $filterStatus.clone().attr("name", 1).attr("value", row.status).html();
+                            return $filterStatus.clone().attr("name", 1).attr("value", row.status).get(0).outerHTML;
                         }
                     },{
                         data: "actions",

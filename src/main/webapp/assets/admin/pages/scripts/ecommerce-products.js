@@ -42,9 +42,16 @@ var EcommerceProducts = function () {
                 },{
                     data: "price"
                 },{
-                    data: "createAt"
+                    data: "createAt",
+                    render: function(data, type, row) {
+                        return new Date(row.createAt).toLocaleDateString();
+                    }
                 },{
-                    data: "status"
+                    data: "status",
+                    render: function(data, type, row){
+                        var className = row.status == "PUBLISHED" ? "label-success" : "label-danger";
+                        return "<span class='label " + className + "'>"+ row.status +"</span>";
+                    }
                 },{
                     data: "actions",
                     render: function (data, type, row) {
