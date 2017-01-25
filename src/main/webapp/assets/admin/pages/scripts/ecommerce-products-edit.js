@@ -51,8 +51,8 @@ var EcommerceProductsEdit = function () {
                         data: "rating"
                     },{
                         data: "status",
-                        render: function(data,type, row){
-                            return $filterStatus.clone().attr("name", 1).attr("value", row.status).get(0).outerHTML;
+                        render: function(data,type, row, meta){
+                            return $filterStatus.clone().attr("name", "reviews["+meta.row+"].status").attr("value", data).get(0).outerHTML;
                         }
                     },{
                         data: "actions",
