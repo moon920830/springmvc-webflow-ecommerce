@@ -460,7 +460,7 @@ var Layout = function () {
               range: true,
               min: 0,
               max: 999,
-              values: [ $( "#priceMin" ).val(), $( "#priceMax" ).val() ],
+              values: [ 0, 999 ],
               slide: function( event, ui ) {
                 $( "#amount" ).text( "€" + ui.values[ 0 ] + " - €" + ui.values[ 1 ] );
                 $( "#priceMin" ).val(ui.values[ 0 ]);
