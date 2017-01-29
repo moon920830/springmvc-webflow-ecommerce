@@ -100,8 +100,7 @@ var EcommerceProductsCreate = function () {
         $('.date-picker').datepicker({
             rtl: Metronic.isRTL(),
             autoclose: true,
-            format: 'dd/mm/yyyy',
-            setDate: new Date()
+            format: 'dd/mm/yyyy'
         });
 
         //init datetimepickers
@@ -109,10 +108,9 @@ var EcommerceProductsCreate = function () {
             isRTL: Metronic.isRTL(),
             autoclose: true,
             todayBtn: true,
-            pickerPosition: (Metronic.isRTL() ? "bottom-right" : "bottom-left"),
+            pickferPosition: (Metronic.isRTL() ? "bottom-right" : "bottom-left"),
             minuteStep: 10,
-            format: 'dd/mm/yyyy',
-            setDate: new Date()
+            format: 'dd/mm/yyyy'
         });
 
         //init maxlength handler
@@ -126,13 +124,11 @@ var EcommerceProductsCreate = function () {
     }
 
     return {
-
         //main function to initiate the module
         init: function () {
             initComponents();
             handleImages();
         }
-
     };
 
 }();
