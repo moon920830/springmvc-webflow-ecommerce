@@ -66,7 +66,7 @@ var EcommerceOrders = function () {
                     data: "actions",
                     render: function (data, type, row) {
                         var content = "<div class='btn-group btn-group-sm'>";
-                        content += "<a href='"+_ctx+"/admin/products/edit/"+row.id+"' class='btn btn-sm btn-default'><i class='fa fa-pencil'></i> Edit</a>";
+                        content += "<a href='"+_ctx+"/admin/orders/report/"+row.id+"' class='btn btn-sm btn-default'><i class='fa fa-file'></i> Report</a>";
                         content += "<a href='"+_ctx+"/admin/orders/"+row.id+"' class='btn btn-sm btn-info'><i class='fa fa-eye'></i> show</a>";
                         content += "</div>";
                         return content;
