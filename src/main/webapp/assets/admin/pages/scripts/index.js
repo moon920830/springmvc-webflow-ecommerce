@@ -13,6 +13,8 @@ var Index = function () {
         },
 
         initJQVMAP: function () {
+            
+            
             if (!jQuery().vectorMap) {
                 return;
             }
@@ -21,8 +23,8 @@ var Index = function () {
                 jQuery('.vmaps').hide();
                 jQuery('#vmap_' + name).show();
             }
-
-            var setMap = function (name) {
+            
+            var setMap = function (name, values) {
                 var data = {
                     map: 'world_en',
                     backgroundColor: null,
@@ -33,7 +35,6 @@ var Index = function () {
                     enableZoom: true,
                     hoverColor: '#c9dfaf',
                     hoverOpacity: null,
-                    values: sample_data,
                     normalizeFunction: 'linear',
                     scaleColors: ['#b6da93', '#909cae'],
                     selectedColor: '#c9dfaf',
@@ -42,18 +43,13 @@ var Index = function () {
                     onLabelShow: function (event, label, code) {
 
                     },
-                    onRegionOver: function (event, code) {
-                        if (code == 'ca') {
-                            event.preventDefault();
-                        }
-                    },
                     onRegionClick: function (element, code, region) {
                         var message = 'You clicked "' + region + '" which has the code: ' + code.toUpperCase();
                         alert(message);
                     }
                 };
-
                 data.map = name + '_en';
+                data.values = values;
                 var map = jQuery('#vmap_' + name);
                 if (!map) {
                     return;
@@ -63,13 +59,21 @@ var Index = function () {
                 map.vectorMap(data);
                 map.hide();
             }
+            
+            $.getJSON(_ctx + "/admin/orders/byCountry", function (response) {
 
-            setMap("world");
-            setMap("usa");
-            setMap("europe");
-            setMap("russia");
-            setMap("germany");
-            showMap("world");
+                var responseData = response ? response.reduce(function (acc, cur, i) {
+                    acc[cur.code] = cur.orders;
+                    return acc;
+                }, {}) : [];
+                
+                setMap("world", responseData);
+                setMap("usa", responseData);
+                setMap("europe", responseData);
+                setMap("russia", responseData);
+                setMap("germany", responseData);
+                showMap("world");
+            });
 
             jQuery('#regional_stat_world').click(function () {
                 showMap("world");
