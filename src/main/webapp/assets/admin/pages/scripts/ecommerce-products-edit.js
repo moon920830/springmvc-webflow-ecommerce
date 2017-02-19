@@ -3,7 +3,7 @@ var EcommerceProductsEdit = function () {
     var handleReviews = function () {
 
         var grid = new Datatable();
-        $table = $("#datatable_reviews");
+        var $table = $("#datatable_reviews");
         var source = $table.get(0).dataset.source;
         var $filterStatus = $("#filterStatus");
         var $filterRating = $("#filterRating").next().rateit().end();
@@ -67,7 +67,7 @@ var EcommerceProductsEdit = function () {
                     },{
                         data: "actions",
                         render: function (data, type, row) {
-                            return "<a href='' class='btn btn-sm btn-default btn-circle btn-editable' data-target='#detailReviewModal' data-toggle='modal'><i class='fa fa-eye'></i> show</a>";
+                            return "<a href='' class='btn btn-sm btn-default btn-circle btn-editable' data-target='#detailReviewModal' data-toggle='modal' data-review='"+row.id+"'><i class='fa fa-eye'></i> show</a>";
                         }
                     }
                 ],
@@ -77,12 +77,29 @@ var EcommerceProductsEdit = function () {
             }
         });
     }
+    
+    var handleModalReview = function(){
+        
+        var $detailReviewModal = $("#detailReviewModal");
+        $("#datatable_reviews").on("click", "[data-review]", function(event) {
+            event.preventDefault();
+            var review = this.dataset.review;
+            var url = _ctx + "/admin/products/reviews/" + review;
+            $.getJSON(url, function(response) {
+                $detailReviewModal.find("[data-title]").text(response.username + " " + response.createAt);
+                $detailReviewModal.find("[data-content]").text(response.body);
+            });
+        });
+    }
+            
+    
 
     return {
 
         //main function to initiate the module
         init: function () {
             handleReviews();
+            handleModalReview();
         }
 
     };
