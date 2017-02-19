@@ -6,6 +6,7 @@ var EcommerceProductsEdit = function () {
         $table = $("#datatable_reviews");
         var source = $table.get(0).dataset.source;
         var $filterStatus = $("#filterStatus");
+        var $filterRating = $("#filterRating").next().rateit().end();
         grid.init({
             src: $table,
             onSuccess: function (grid) {
@@ -48,11 +49,20 @@ var EcommerceProductsEdit = function () {
                             return row.user.fullName;
                         }
                     },{
-                        data: "rating"
+                        data: "rating",
+                        render: function(data, type, row, meta){
+                           return $filterRating
+                                .attr("name", "").attr("value", data).attr("readonly", "readonly")
+                                .next().addBack().get().map(function(el) { return el.outerHTML }).join("");
+                        }
                     },{
                         data: "status",
-                        render: function(data,type, row, meta){
-                            return $filterStatus.clone().attr("name", "reviews["+meta.row+"].status").attr("value", data).get(0).outerHTML;
+                        render: function(data, type, row, meta){
+                            return $filterStatus.clone()
+                                    .attr("name", "reviews["+meta.row+"].status")
+                                    .children("[value="+data+"]")
+                                    .attr("selected", "selected")
+                                    .end().get(0).outerHTML;
                         }
                     },{
                         data: "actions",
