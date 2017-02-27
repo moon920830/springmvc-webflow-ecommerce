@@ -51,9 +51,10 @@ var EcommerceProductsEdit = function () {
                     },{
                         data: "rating",
                         render: function(data, type, row, meta){
-                           return $filterRating
+                           return $filterRating.clone()
                                 .attr("name", "").attr("value", data).attr("readonly", "readonly")
-                                .next().addBack().get().map(function(el) { return el.outerHTML }).join("");
+                                .add($filterRating.next().clone())
+                                .get().map(function(el) { return el.outerHTML }).join("");
                         }
                     },{
                         data: "status",

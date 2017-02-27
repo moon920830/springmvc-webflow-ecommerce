@@ -5,6 +5,7 @@ var ProductDetail = function () {
         init: function () {
             ProductDetail.initAddProductToCart();
             ProductDetail.initReview();
+            ProductDetail.initRecommendations();
         },
         initAddProductToCart: function(){
             var $addProductToCart = $("#addProductToCart");
@@ -45,6 +46,19 @@ var ProductDetail = function () {
                     });
                 });
             }
+        },
+        
+        initRecommendations: function()  {
+            
+            var $recommendations = $("#recommendations");
+            if($recommendations.length > 0) {
+                var recommendationUrl = $recommendations.get(0).dataset.source;
+                $.get(recommendationUrl, function (response) {
+                    $createReviewContainer.html(response);
+                    Layout.initOWL();
+                });
+            }
+            
         }
     };
 }();
